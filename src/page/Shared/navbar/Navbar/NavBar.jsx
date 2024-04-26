@@ -1,7 +1,22 @@
 import { Link } from "react-router-dom";
 import userDefaultPic from "../../../../assets/user.png";
+import { useContext } from "react";
+import { AuthContext } from "../../../../authprovider/Authprovider";
 
 const NavBar = () => {
+  const { logOut, user } = useContext(AuthContext);
+
+  const HandleLogout = () => {
+    console.log("logout clicked");
+    logOut()
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        console.error(error, error.message);
+      });
+  };
+
   const NavLink = (
     <>
       <li>
@@ -9,11 +24,19 @@ const NavBar = () => {
       </li>
       <li>
         {" "}
-        <Link to="about">About</Link>
+        <Link to="/about">About</Link>
       </li>
       <li>
         {" "}
-        <Link to="Career">Career</Link>
+        <Link to="/Career">Career</Link>
+      </li>
+      <li>
+        {" "}
+        <Link to="/login">login</Link>
+      </li>
+      <li>
+        {" "}
+        <Link to="/register">SignUp</Link>
       </li>
     </>
   );
@@ -21,6 +44,8 @@ const NavBar = () => {
   return (
     <div>
       <div className="navbar bg-base-100">
+        {/* {user && <p>{user.email}</p>} */}
+
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -56,9 +81,15 @@ const NavBar = () => {
               <img src={userDefaultPic} />
             </div>
           </div>
-          <Link>
-            <button className="btn btn-neutral">Login</button>
-          </Link>
+          {user ? (
+            <button onClick={HandleLogout} className="btn">
+              Logout
+            </button>
+          ) : (
+            <Link to="/login">
+              <button className="btn btn-neutral">Login</button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

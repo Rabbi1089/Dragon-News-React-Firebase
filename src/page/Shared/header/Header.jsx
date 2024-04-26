@@ -3,7 +3,7 @@ import moment from "moment";
 
 const Header = () => {
   return (
-    <div className="text-center">
+    <div className="text-center mt-6">
       <img className="mx-auto" src={logo} alt="Dragon News logo" />
       <p>Journalism Without Fear or Favour</p>
       <p className="text-xl">{moment().format("dddd, MMMM D ,YYYY")}</p>
